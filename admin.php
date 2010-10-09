@@ -26,6 +26,8 @@
 		<a href="add_grade.php">Анги нэмэх</a><br />
 		<a href="add_lesson.php">Хичээл нэмэх</a><br />
 		<a href="add_subject.php">Сэдэв нэмэх</a><br />
-		<a href="add_subsubject.php">Дэд сэдэв нэмэх</a>
+		<a href="add_subsubject.php">Дэд сэдэв нэмэх</a><br />
+		<a href="add_test.php">Тэст нэмэх</a><br />
+		<a href="add_question.php">Асуулт нэмэх</a>
     </body>
 </html>
