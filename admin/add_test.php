@@ -59,6 +59,6 @@
             <input type="text" name="test_description" /><br />
             <input type="submit" value="Оруулах" />
         </form>
-        <a href="admin.php">Буцах</a> | <a href="index.php">Нүүр</a>
+        <a href="index.php">Буцах</a> | <a href="../index.php">Нүүр</a>
     </body>
 </html>

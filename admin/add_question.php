@@ -35,7 +35,6 @@
 				//Одоо хариултуудаа нэмж эхлэнэ.
 				if($_POST['answer_1'] != "" && $stmt = $mysqli->prepare("INSERT INTO answer(question_id, answer, istrue) value(?, ?, ?)"))
                 {
-					echo $_POST['answer_1'];
 					$qtrue = 0;
 					$answer = $_POST['answer_1'];
 					//Энэ нөгөө үнэн худлыг чагталдаг зүйл чагтлагдаагүй бол утга ирэхгүй.
