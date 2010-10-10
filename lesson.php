@@ -1,3 +1,9 @@
+<?php 
+	$grade = $_GET['grade'];
+	session_start();
+	$_SESSION['grade'] = $grade;
+	echo 'Хичээл дээр үүссэн сэшн '.$_SESSION['grade'].'<br />';
+?>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
