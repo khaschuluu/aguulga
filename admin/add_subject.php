@@ -38,6 +38,8 @@
             <?php
                 $mysqli = new mysqli('localhost', 'root', 'root', 'aguulga') or die("Can't connect to MySQL server");
                 $mysqli->query("SET NAMES 'utf8'");
+				//Энэ жаахан онцгүй шийдэл. Гэхдээ дараа нь ajax ашиглаад сайжруулж болно.
+				//Юу вэ гэхээр сонгох өмхөн холбоос баазыг шатлан шүүх биш харин шууд нэг дор нэг сонгох хэсэгт цугт нь рэндэрлээд id-г нь авна.
                 $query = "SELECT lesson.id, grade.description, lesson.name FROM lesson INNER JOIN grade ON grade.id = lesson.grade_id ORDER BY lesson.id";
                 if($result = $mysqli->prepare($query))
                 {

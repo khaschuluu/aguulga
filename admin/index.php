@@ -1,6 +1,13 @@
 <?php
+	//Энд админы баталгаажуулалт буюу autontication гэдэг асуудлыг алдарт session-оор шийдсэн байгаа.
+	//Доор session ашиглана гэдгээ зааж байна.
 	session_start();
+	//Доорх хувьсагч нь хандах эрхээр хязгаарласан хуудсууд дунд хандах эрхийн алдаа гарвал дамжуулна.
 	global $error;
+	//Хэрвээ admin гэдэг session үүсээгүй байвал бид нэвтэрч орох хэрэгтэй.
+	//Шууд login.php-рүү заахдаа error-д алдааны мэдээллийг өгч байна.
+	//Хэрвээ доорх нөхцөл үнэн бол login.php хуудас доорх мэссэжтэй дуудагдах болно.
+	//Ихэнх хуудсууд дээр иймэрхүү буюу хандах эрх байхгүй бол шууд login хуудасруу зааснаар хандах эрхийг зохицуулсан.
 	if(!isset($_SESSION['admin']))
 	{
 		$error = "Та нэвтэрч орно уу!";
@@ -13,6 +20,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     </head>
     <body>
+		<?php
+			//Энэ форм бол logout.php хуудасруу logout утга дамжуулсанаар гарна, session устгаж байгаа.
+			//logout.php хуудсыг харна уу!
+		?>
 		<form action="logout.php" method="post" name="logout">
 		    <input type='submit' name="logout" value="Гарах" />
 		</form>
