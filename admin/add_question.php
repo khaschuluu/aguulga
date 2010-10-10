@@ -10,8 +10,7 @@
     {
         if(isset($_POST['test_id']) && isset($_POST['question']) && isset($_POST['question_type']))
         {
-            $mysqli = new mysqli('localhost', 'root', 'root', 'aguulga') or die("Can't connect to MySQL server");
-            $mysqli->query("SET NAMES 'utf8'");
+			include "../db.php";
 			//Шинэ асуултаа оруулж байна.
             if($stmt = $mysqli->prepare("INSERT INTO question(test_id, question, type) values(?, ?, ?)"))
             {
@@ -107,9 +106,8 @@
             Тэст:
             <select name="test_id">
             <?php
-                $mysqli = new mysqli('localhost', 'root', 'root', 'aguulga') or die("Can't connect to MySQL server");
-                $mysqli->query("SET NAMES 'utf8'");
-                $query = "SELECT test.id, grade.description, lesson.name, subject.name, subsubject.name, test.name FROM test INNER JOIN subsubject ON subsubject.id = test.subsubject_id INNER JOIN subject ON subject.id = subsubject.subject_id INNER JOIN lesson ON lesson.id = subject.lesson_id INNER JOIN grade ON grade.id = lesson.grade_id ORDER BY test.id";
+                include "../db.php";
+				$query = "SELECT test.id, grade.description, lesson.name, subject.name, subsubject.name, test.name FROM test INNER JOIN subsubject ON subsubject.id = test.subsubject_id INNER JOIN subject ON subject.id = subsubject.subject_id INNER JOIN lesson ON lesson.id = subject.lesson_id INNER JOIN grade ON grade.id = lesson.grade_id ORDER BY test.id";
                 if($result = $mysqli->prepare($query))
                 {
                     $result->execute();

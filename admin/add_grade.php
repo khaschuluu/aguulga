@@ -20,9 +20,7 @@
         if(isset($_POST['grade_name']) && isset($_POST['grade_description']))
         {
 			//Дээрх хүсэлтүүд ирсэн бол баазтайгаа холбогдох ажлаа хийж байна. Энийг бид мэднэ.
-            $mysqli = new mysqli('localhost', 'root', 'root', 'aguulga') or die("Can't connect to MySQL server");
-			//Нөгөө л utf8, хэзээ энэ нь асуудаггүй стандарт болох юм бүү мэд, муусайн АНУ-чууд :(
-            $mysqli->query("SET NAMES 'utf8'");
+			include "../db.php";
 			//Доор нөгөө prepared statment гээчийгээ query-тэй бичиж байна. Асуултын тэмдэгийн оронд юм рэндэрлэгдэнэ.
             if($stmt = $mysqli->prepare("INSERT INTO grade(name, description) values(?, ?)"))
             {

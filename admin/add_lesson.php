@@ -10,9 +10,8 @@
     {
         if(isset($_POST['grade_id']) && isset($_POST['lesson_name']) && isset($_POST['lesson_description']))
         {
-            $mysqli = new mysqli('localhost', 'root', 'root', 'aguulga') or die("Can't connect to MySQL server");
-            $mysqli->query("SET NAMES 'utf8'");
-            if($stmt = $mysqli->prepare("INSERT INTO lesson(grade_id, name, description) values(?, ?, ?)"))
+            include "../db.php";
+			if($stmt = $mysqli->prepare("INSERT INTO lesson(grade_id, name, description) values(?, ?, ?)"))
             {
                 $stmt->bind_param("iss",$_POST['grade_id'], $_POST['lesson_name'], $_POST['lesson_description']);
                 $stmt->execute();
@@ -42,9 +41,8 @@
 				//Ингэхийн тулд тухайн хүснэгтийн мэдээллүүдийг баазаас дуудаад, мөр мөрөөр нь салгаж тус тусд нь сонгодгоор хийнэ.
 				//Тэгээд нэрнүүдээс сонголт хийхэд сонгосон нэрний баазад харгалзах мөрийн id-г нь буцаана.
 				//Мэдээж шинээр нэмж буй мэдээлэлд маань өмнөх хүснэгтийг заасан багана бий.
-                $mysqli = new mysqli('localhost', 'root', 'root', 'aguulga') or die("Can't connect to MySQL server");
-                $mysqli->query("SET NAMES 'utf8'");
-                if($result = $mysqli->prepare('SELECT id, description FROM grade ORDER BY id'))
+                include "../db.php";
+				if($result = $mysqli->prepare('SELECT id, description FROM grade ORDER BY id'))
                 {
                     $result->execute();
                     $result->bind_result($grade_id, $grade_description);
