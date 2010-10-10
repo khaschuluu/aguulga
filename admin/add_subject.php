@@ -10,9 +10,8 @@
     {
         if(isset($_POST['lesson_id']) && isset($_POST['subject_name']) && isset($_POST['subject_description']))
         {
-            $mysqli = new mysqli('localhost', 'root', 'root', 'aguulga') or die("Can't connect to MySQL server");
-            $mysqli->query("SET NAMES 'utf8'");
-            if($stmt = $mysqli->prepare("INSERT INTO subject(lesson_id, name, description) values(?, ?, ?)"))
+            include "../db.php";
+			if($stmt = $mysqli->prepare("INSERT INTO subject(lesson_id, name, description) values(?, ?, ?)"))
             {
                 $stmt->bind_param("iss",$_POST['lesson_id'], $_POST['subject_name'], $_POST['subject_description']);
                 $stmt->execute();
@@ -36,8 +35,7 @@
             Хичээл:
             <select name="lesson_id">
             <?php
-                $mysqli = new mysqli('localhost', 'root', 'root', 'aguulga') or die("Can't connect to MySQL server");
-                $mysqli->query("SET NAMES 'utf8'");
+				include "../db.php";
 				//Энэ жаахан онцгүй шийдэл. Гэхдээ дараа нь ajax ашиглаад сайжруулж болно.
 				//Юу вэ гэхээр сонгох өмхөн холбоос баазыг шатлан шүүх биш харин шууд нэг дор нэг сонгох хэсэгт цугт нь рэндэрлээд id-г нь авна.
                 $query = "SELECT lesson.id, grade.description, lesson.name FROM lesson INNER JOIN grade ON grade.id = lesson.grade_id ORDER BY lesson.id";

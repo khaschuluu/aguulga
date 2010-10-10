@@ -10,9 +10,8 @@
     {
         if(isset($_POST['subsubject_id']) && isset($_POST['test_name']) && isset($_POST['test_description']))
         {
-            $mysqli = new mysqli('localhost', 'root', 'root', 'aguulga') or die("Can't connect to MySQL server");
-            $mysqli->query("SET NAMES 'utf8'");
-            if($stmt = $mysqli->prepare("INSERT INTO test(subsubject_id, name, description) values(?, ?, ?)"))
+            include "../db.php";
+			if($stmt = $mysqli->prepare("INSERT INTO test(subsubject_id, name, description) values(?, ?, ?)"))
             {
                 $stmt->bind_param("iss",$_POST['subsubject_id'], $_POST['test_name'], $_POST['test_description']);
                 $stmt->execute();
@@ -36,9 +35,8 @@
             Дэд сэдэв:
             <select name="subsubject_id">
             <?php
-                $mysqli = new mysqli('localhost', 'root', 'root', 'aguulga') or die("Can't connect to MySQL server");
-                $mysqli->query("SET NAMES 'utf8'");
-                $query = "SELECT subsubject.id, grade.description, lesson.name, subject.name, subsubject.name FROM subsubject INNER JOIN subject ON subject.id = subsubject.subject_id INNER JOIN lesson ON lesson.id = subject.lesson_id INNER JOIN grade ON grade.id = lesson.grade_id ORDER BY subsubject.id";
+                include "../db.php";
+				$query = "SELECT subsubject.id, grade.description, lesson.name, subject.name, subsubject.name FROM subsubject INNER JOIN subject ON subject.id = subsubject.subject_id INNER JOIN lesson ON lesson.id = subject.lesson_id INNER JOIN grade ON grade.id = lesson.grade_id ORDER BY subsubject.id";
                 if($result = $mysqli->prepare($query))
                 {
                     $result->execute();

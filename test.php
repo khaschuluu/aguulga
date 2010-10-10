@@ -4,9 +4,8 @@
     </head>
     <body>
 		<?php
-		    $mysqli = new mysqli('localhost', 'root', 'root', 'aguulga') or die("Can't connect to MySQL server");
-		    $mysqli->query("SET NAMES 'utf8'");
-		    if($stmt = $mysqli->prepare("SELECT * FROM test WHERE subsubject_id = ? ORDER BY id"))
+		    include "db.php";
+			if($stmt = $mysqli->prepare("SELECT * FROM test WHERE subsubject_id = ? ORDER BY id"))
 		    {
 		        $stmt->bind_param("i", $_GET['subsubject']);
 		        $stmt->execute();
