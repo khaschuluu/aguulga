@@ -8,80 +8,88 @@
     }
     else
     {
-		//Энэ хэсэг шийдэгдэх шатандаа явж байна. Асуулт болон харгалзах олон хариултыг нэг формоос аваад нэг дор нэмдэг систем юм.
-		//Би яаж шийдэх гэсэн бэ гэхээр шууд нэг асуулт болон төрөлтэй нь аваад 5 хариултын форм нэг дор гарч ирнэ.
-		//Хариулт 2, 3, 4, 5 ч байж болно. Үлдсэн асуултыг хоосон орхисоноор тэд баазруу орохгүйгээр хийе гэж бодож байна.
-		//Дараа нь үүнийг ajax ашиглаад цэвэрхэн шийдэж болно.
-		//Харин одоо яаж ингэж нэг дор олон хүснэгтрүү зэрэг хийх вэ гэдэг асуудал л байна.
-        if(isset($_POST['test_id']) && isset($_POST['question']) && isset($_POST['question_type']) && isset($_POST['answer_1']))
+        if(isset($_POST['test_id']) && isset($_POST['question']) && isset($_POST['question_type']))
         {
             $mysqli = new mysqli('localhost', 'root', 'root', 'aguulga') or die("Can't connect to MySQL server");
             $mysqli->query("SET NAMES 'utf8'");
-            if($stmt = $mysqli->prepare("INSERT INTO quesion(test_id, quesion, type) values(?, ?, ?)"))
+			//Шинэ асуултаа оруулж байна.
+            if($stmt = $mysqli->prepare("INSERT INTO question(test_id, question, type) values(?, ?, ?)"))
             {
-                $stmt->bind_param("iss",$_POST['test_id'], $_POST['quesion'], $_POST['question_type']);
+                $stmt->bind_param("isi",$_POST['test_id'], $_POST['question'], $_POST['question_type']);
                 $stmt->execute();
                 $notice = $stmt->affected_rows . " aсуулт нэмэгдлээ.";
-                $stmt->close();
-				$query = "SELECT id FROM question WHERE question = '?' AND type = ?";
-				if($stmt = $mysqli->prepare($query))
+				$stmt->close();
+				//Шинээр оруулсан асуултынхаа id-г авч байна.
+				$qid = 0;
+				if($stmt = $mysqli->prepare("SELECT MAX(id) FROM question"))
                 {
-					$stmt->bind_param("si", $_POST['question'], $_POST['question_type']);
                     $stmt->execute();
                     $stmt->bind_result($question_id);
+					while($stmt->fetch())
+                    {
+						$qid = $question_id;
+                    }
+
                     $stmt->close();
                 }
-				if($stmt = $mysqli->prepare("INSERT INTO answer(quesion_id, answer, true) values(?, ?, ?)"))
-            	{
-					$anwser_true = 0;
+				//Одоо хариултуудаа нэмж эхлэнэ.
+				if($_POST['answer_1'] != "" && $stmt = $mysqli->prepare("INSERT INTO answer(question_id, answer, istrue) value(?, ?, ?)"))
+                {
+					echo $_POST['answer_1'];
+					$qtrue = 0;
+					$answer = $_POST['answer_1'];
+					//Энэ нөгөө үнэн худлыг чагталдаг зүйл чагтлагдаагүй бол утга ирэхгүй.
+					//Хэрвээ утга ирвэл утгыг нь, учир нь 1 гэсэн утга буцааж байгаа.
+					//Үгүй бол шууд дээр байгаа 0 гэдэг утгаа авна.
 					if(isset($_POST['answer_1_true']))
-						$answer_true = 1;
-            	    $stmt->bind_param("iss",$question_id, $_POST['answer_1'], $answer_true);
-            	    $stmt->execute();
-            	    $notice = $stmt->affected_rows . " харгалзах хариулт-1 нэмэгдлээ.";
-            	    $stmt->close();
-            	}
-				if(isset($_POST['answer_2']) && $stmt = $mysqli->prepare("INSERT INTO answer(quesion_id, answer, true) values(?, ?, ?)"))
-            	{
-					$anwser_true = 0;
-					if(isset($_POST['answer_2_true']))
-						$answer_true = 1;
-            	    $stmt->bind_param("iss",$question_id, $_POST['answer_2'], $answer_true);
-            	    $stmt->execute();
-            	    $notice = $stmt->affected_rows . " харгалзах хариулт-2 нэмэгдлээ.";
-            	    $stmt->close();
-            	}
-				if(isset($_POST['answer_3']) && $stmt = $mysqli->prepare("INSERT INTO answer(quesion_id, answer, true) values(?, ?, ?)"))
-            	{
-					$anwser_true = 0;
-					if(isset($_POST['answer_3_true']))
-						$answer_true = 1;
-            	    $stmt->bind_param("iss",$question_id, $_POST['answer_3'], $answer_true);
-            	    $stmt->execute();
-            	    $notice = $stmt->affected_rows . " харгалзах хариулт-3 нэмэгдлээ.";
-            	    $stmt->close();
-            	}
-				if(isset($_POST['answer_4']) && $stmt = $mysqli->prepare("INSERT INTO answer(quesion_id, answer, true) values(?, ?, ?)"))
-            	{
-					$anwser_true = 0;
-					if(isset($_POST['answer_4_true']))
-						$answer_true = 1;
-            	    $stmt->bind_param("iss",$question_id, $_POST['answer_4'], $answer_true);
-            	    $stmt->execute();
-            	    $notice = $stmt->affected_rows . " харгалзах хариулт-4 нэмэгдлээ.";
-            	    $stmt->close();
-            	}
-				if(isset($_POST['answer_5']) && $stmt = $mysqli->prepare("INSERT INTO answer(quesion_id, answer, true) values(?, ?, ?)"))
-            	{
-					$anwser_true = 0;
-					if(isset($_POST['answer_5_true']))
-						$answer_true = 1;
-            	    $stmt->bind_param("iss",$question_id, $_POST['answer_5'], $answer_true);
-            	    $stmt->execute();
-            	    $notice = $stmt->affected_rows . " харгалзах хариулт-5 нэмэгдлээ.";
-            	    $stmt->close();
-            	}
-            }
+						$qtrue = $_POST['answer_1_true'];
+					$stmt->bind_param("isi", $qid, $answer, $qtrue);
+                    $stmt->execute();
+					$notice .= "<br />" . $stmt->affected_rows . " хариулт нэмэгдлээ.";
+					//Хоёр дахь хариултыг шалгаад байвал нэм.
+					if($_POST['answer_2'] != "")
+					{
+						$qtrue = 0;
+						$answer = $_POST['answer_2'];
+						if(isset($_POST['answer_2_true']))
+							$qtrue = $_POST['answer_2_true'];
+                    	$stmt->execute();
+						$notice .= "<br />" . $stmt->affected_rows . " хариулт нэмэгдлээ.";
+						//Гурав дахь хариултыг шалгаад байвал нэм.
+						if($_POST['answer_3'] != "")
+						{
+							$qtrue = 0;
+							$answer = $_POST['answer_3'];
+							if(isset($_POST['answer_3_true']))
+								$qtrue = $_POST['answer_3_true'];
+                    		$stmt->execute();
+							$notice .= "<br />" . $stmt->affected_rows . " хариулт нэмэгдлээ.";
+							//Дөрөв дэх хариултыг шалгаад байвал нэм.
+							if($_POST['answer_4'] != "")
+							{
+								$qtrue = 0;
+								$answer = $_POST['answer_4'];
+								if(isset($_POST['answer_4_true']))
+									$qtrue = $_POST['answer_4_true'];
+                    			$stmt->execute();
+								$notice .= "<br />" . $stmt->affected_rows . " хариулт нэмэгдлээ.";
+								//Тав дахь хариултыг шалгаад байвал нэм.
+								if($_POST['answer_5'] != "")
+								{
+									$qtrue = 0;
+									$answer = $_POST['answer_5'];
+									if(isset($_POST['answer_5_true']))
+										$qtrue = $_POST['answer_5_true'];
+                    				$stmt->execute();
+									$notice .= "<br />" . $stmt->affected_rows . " хариулт нэмэгдлээ.";
+								}
+							}
+						}
+					}
+                    $stmt->close();
+                }
+
+			}
             $mysqli->close();
         }
     }
@@ -108,16 +116,15 @@
                     $result->bind_result($test_id, $grade_description, $lesson_name, $subject_name, $subsubject_name, $test_name);
                     while($result->fetch())
                     {
-                        printf("<option value=\"%d\">%s - %s - %s - %s - %s</option>", $test_id, $grade_description, $lesson_name, $subject_name, $subsubject_name, $test_name);
+                        printf("<option value=\"%d\">%s - %s - %s - %s - %s</option><br />", $test_id, $grade_description, $lesson_name, $subject_name, $subsubject_name, $test_name);
                     }
                     $result->close();
                 }
                 $mysqli->close();
-
             ?>
             </select><br />
             Асуулт:
-            <input type="text" name="quesion" /><br />
+            <input type="text" name="question" /><br />
             Асуултын төрөл:
 			<select name="question_type">
 				<option value="0">Сонгодог</option>
