@@ -1,8 +1,6 @@
 <?php 
-	$grade = $_GET['grade'];
 	session_start();
-	$_SESSION['grade'] = $grade;
-	echo 'Хичээл дээр үүссэн сэшн '.$_SESSION['grade'].'<br />';
+	$_SESSION['grade'] = $_GET['grade'];
 ?>
 <html>
     <head>
@@ -11,6 +9,21 @@
     	<link type="text/css" rel="stylesheet" href="css/blueprint/screen.css"/>
     </head>
     <body>
+        <?php
+			include "db.php";
+		    if($stmt = $mysqli->prepare("SELECT description FROM grade WHERE id = ?"))
+		    {
+		        $stmt->bind_param("i", $_SESSION['grade']);
+		        $stmt->execute();
+		        $stmt->bind_result($grade);
+		        while($stmt->fetch())
+		        {
+		            echo $grade . "<br />";
+		        }
+		        $stmt->close();
+		    }
+		    $mysqli->close();
+        ?>
 		<?php
 			//Хичээлүүдийг дуудаж харуулах хэсэг.
 			include "db.php";

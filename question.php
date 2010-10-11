@@ -1,5 +1,7 @@
 <?php
-    session_start();
+	session_start();
+	$_SESSION['test'] = $_GET['test'];
+
     if(!isset($_SESSION['stdscore']))
     {
         $_SESSION['stdscore'] = 0;
@@ -33,20 +35,18 @@
                 $result->bind_param("ii", $_SESSION['qids'][$_SESSION['qcursor']], $_POST['answer']);
                 $result->execute();
                 $result->bind_result($istrue);
-                echo "IsTrue юу: " . $istrue . "<br />";
                 while($result->fetch())
                 {
-                    echo "IsTrue: " . $istrue . "<br />";
                     if($istrue == 1)
                     {
                         $_SESSION['stdscore'] = $_SESSION['stdscore'] + 10;
-                        echo $stdscore = $_SESSION['stdscore'];
+                        $stdscore = $_SESSION['stdscore'];
                         $correct = "Correct";
                     }
                     else
                     {
                         $_SESSION['stdscore'] = $_SESSION['stdscore'] - 1;
-                        echo $stdscore = $_SESSION['stdscore'];
+                        $stdscore = $_SESSION['stdscore'];
                         $correct = "Not correct";
                     }
                 }
@@ -68,10 +68,23 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     </head>
     <body>
+        <?php
+			include "db.php";
+		    if($stmt = $mysqli->prepare("SELECT grade.description, lesson.name, subject.name, subsubject.name, test.name FROM lesson INNER JOIN grade ON grade.id = ? INNER JOIN subject ON subject.id = ? INNER JOIN subsubject ON subsubject.id = ? INNER JOIN test ON test.id = ? WHERE lesson.id = ?"))
+		    {
+		        $stmt->bind_param("iiiii", $_SESSION['grade'], $_SESSION['lesson'], $_SESSION['subject'], $_SESSION['subsubject'], $_SESSION['test']);
+		        $stmt->execute();
+		        $stmt->bind_result($grade, $lesson, $subject, $subsubject, $test);
+		        while($stmt->fetch())
+		        {
+		            echo $grade . ">" . $lesson . ">" . $subject . ">" . $subsubject . ">" . $test . "<br />";
+		        }
+		        $stmt->close();
+		    }
+		    $mysqli->close();
+        ?>
         <form action="question.php?test=<?php echo $_GET['test'] ?>" method="post" name="send_answer">
 		    <?php
-                echo "Now question: " . $_SESSION['qids'][$_SESSION['qcursor']] . "<br />";
-                echo "Now question cursor: " . $_SESSION['qcursor'] . "<br />";
                 if(isset($_SESSION['qcursor']))
                 {
 		       	    include "db.php";
@@ -99,9 +112,13 @@
 		            }
 		            $mysqli->close();
                     //session_destroy();
+                    echo "<input type=\"submit\" value=\"Оруулах\" />";
+                }
+                else
+                {
+                    echo "<a href=\"test?subsubject=" . $_SESSION['subsubject'] . "\">Буцах</a>";
                 }
 		    ?>
-            <input type="submit" value="Оруулах" />
         </form>
         <?php
             echo $correct . "<br />";
