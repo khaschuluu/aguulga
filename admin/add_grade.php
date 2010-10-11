@@ -42,7 +42,7 @@
     </head>
     <body>
 		<?php
-			if($notice == "")
+			if($notice != null)
 			{
 				echo $notece;
 			}
