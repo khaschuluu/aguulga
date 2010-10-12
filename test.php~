@@ -28,9 +28,9 @@
 		<!-- Contaner begin -->
 <div class="container"> 
 		<!--menu begin-->
-    <a href="#"><div class="class<?php echo $_SESSION['grade']; ?>_1"></div></a>
+    <a href="#"><div class="class2"></div></a>
         <!--menu end-->
-        <div class="class<?php echo $_SESSION['grade']; ?>_header"></div>
+        <div class="class2_header"></div>
         <div class="test">
         	<div class="onol_link"><a href="theory.php?subsubject=<?php echo $_GET['subsubject']; ?>"><h6>Онол</h6></a></div> 
             <div class="onol_link"><a href="game.php?subsubject=<?php echo $_GET['subsubject']; ?>"><h6>Дадлага</h6></a></div> 
@@ -65,7 +65,7 @@
 		        						while($stmt->fetch())
 		        						{
 		            					//printf("<a href=\"question.php?test=%d\">%s</a> -- %s<br />", $id, $name, $description);
-		            					printf("<div class=\"list_menu_%d\"><a href=\"question.php?test=%d\" ><h4>%s</h4></a><div class=\"circle\"></div></div>",$_SESSION['grade'], $id, $name);   
+		            					printf("<div class=\"list_menu_%d\"><a href=\"question.php?test=%d\" ><h4>%s</h4></a><div class=\"circle\"></div></div>",$_SESSION['grade'], $id, $name);  
 		        						}
 		        						$stmt->close();
 		    						}

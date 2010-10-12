@@ -147,7 +147,7 @@
 		                $result->close();
 		            }
 		            $mysqli->close();
-                    //session_destroy();
+                    session_destroy();
                     echo "<input type=\"submit\" value=\"Оруулах\" />"; 
                 }
                 else
