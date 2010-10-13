@@ -33,7 +33,7 @@
 		        $stmt->bind_result($description);
 		        while($stmt->fetch())
 		        {
-		            //printf("%s", $description);
+		            printf("%s", $description);
 		        }
 		        $stmt->close();
 		    }

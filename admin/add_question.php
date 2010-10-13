@@ -125,8 +125,8 @@
             Асуултын төрөл:
 			<select name="question_type">
 				<option value="0">Сонгодог</option>
-				<option value="1">Чагталдаг</option>
-				<option value="2">Нөхдөг</option>
+				<!--option value="1">Чагталдаг</option>
+				<option value="2">Нөхдөг</option-->
 			</select><br />
 			Хариулт 1:
 			<input type="text" name="answer_1" />
