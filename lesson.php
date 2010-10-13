@@ -73,7 +73,7 @@
 		        $stmt->bind_result($id, $name, $description);
 		        while($stmt->fetch()) 
 		        {
-		            //printf("<a href=\"subject.php?lesson=%d\">%s</a> -- %s<br >", $id, $name, $description);
+		           // printf("<a href=\"subject.php?lesson=%d\">%s</a> -- %s<br >", $id, $name, $description);
 		            printf("<div class=\"list_menu_%d\"><a href=\"subject.php?lesson=%d\"><h4>%s</h4></a><div class=\"circle\"></div></div>",$_SESSION['grade'], $id, $name);  
 		        }
 		        $stmt->close();

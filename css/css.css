@@ -292,6 +292,19 @@
     font-weight:bold;
     font-style:italic;
 }
+.list_menu_2 a{
+    text-decoration: none;
+}
+.list_menu_3 a{
+    text-decoration: none;
+}
+.list_menu_4 a{
+    text-decoration: none;
+}
+.list_menu_5 a{
+    text-decoration: none;
+}
+
 
 /*onol_dadlag_test-iin byh huudsand heregjine*/
 /*onol*/
@@ -350,6 +363,9 @@
     font-family:Verdana;
     font-size:22px;
     color:#00adff;
+}
+.onol_link a{
+    text-decoration: none;
 }
 .onol_link h6{
     font-family:Verdana;
