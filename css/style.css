@@ -1,4 +1,25 @@
-body
-{
-	font-size: 50px;
-}
+.explore ul 		{list-style-image:url("../img/left.png");background-color:#00e000;float:left;margin:30px;height:30px;}
+.explore li 		{float:left;padding:0 40px 0 0;}
+.explore li a 		{color:#aaffaa;text-decoration:none;font-weight:bold;font-size:20px;}
+.explore li a:hover {color:white;}
+.explore li.first 	{list-style-image:url("../img/home.png");}
+.explore li.last 	{padding:0 15px 0 0;}
+
+.list ul 			{list-style-image:url("../img/xo_list.png");float:left;margin:0 0 0 30px;}
+.list li 			{padding:0 40px 0 0;font-size:30px;color:gray;}
+.list li p			{margin:0 0 0 50px;}
+.list li a 			{color:#005600;text-decoration:none;font-weight:bold;font-size:50px;}
+.list li a:hover 	{color:green;}
+.list li.first 		{list-style-image:url("../img/home.png");}
+.list li.last 		{padding:0 15px 0 0;}
+
+.item a				{font-size:50px;}
+
+.header				{background-color:#80ff80;}
+.header h1			{font-weight:bold;color:green;font-size:50px;}
+
+.fooder				{background-color:#80ff80;padding:20px;}
+
+.main				{background-color:white;padding:0 0 50px 0;}
+
+body				{background-color:#b5b5b5;background-image:url("../img/back.png");}
