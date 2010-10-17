@@ -1,6 +1,11 @@
 <?php 
 	session_start();
 	$_SESSION['subsubject'] = $_GET['subsubject'];
+	//Шалгалтанд зориулж үүсгэсэн session-уудыг устгаж байна.
+   	if(isset($_SESSION['qids'])) unset($_SESSION['qids']);
+   	if(isset($_SESSION['qcursor'])) unset($_SESSION['qcursor']);
+   	if(isset($_SESSION['stdscore'])) unset($_SESSION['stdscore']);
+
 ?>
 <html>
     <head>

@@ -1,5 +1,6 @@
 <?php
 	session_start();
+	//Аль тэстээс дамжиж орж ирсэнийг хадгална.
 	$_SESSION['test'] = $_GET['test'];
 
     if(!isset($_SESSION['stdscore']))
@@ -53,9 +54,9 @@
                 $_SESSION['qcursor'] += 1;
                 if($_SESSION['qids'][$_SESSION['qcursor']] == null)
                 {
-                    unset($_SESSION['qids']);
-                    unset($_SESSION['qcursor']);
-                    unset($_SESSION['stdscore']);
+                    if(isset($_SESSION['qids'])) unset($_SESSION['qids']);
+                    if(isset($_SESSION['qcursor'])) unset($_SESSION['qcursor']);
+                    if(isset($_SESSION['stdscore'])) unset($_SESSION['stdscore']);
                 }
                 $result->close();
             }
