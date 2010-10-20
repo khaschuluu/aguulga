@@ -1,38 +1,36 @@
 <?php 
 	session_start();
-	$_SESSION['lesson'] = $_GET['lesson'];
-	//Шалгалтанд зориулж үүсгэсэн session-уудыг устгаж байна.
-   	if(isset($_SESSION['qids'])) unset($_SESSION['qids']);
-   	if(isset($_SESSION['qcursor'])) unset($_SESSION['qcursor']);
-   	if(isset($_SESSION['stdscore'])) unset($_SESSION['stdscore']);
+	$_SESSION['grade'] = $_GET['grade'];
 ?>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 		  <link type="text/css" rel="stylesheet" href="css/blueprint/screen.css"/>
 		  <link type="text/css" rel="stylesheet" href="css/css.css" />
-	</head>
+    </head>
     <body class="background">
         <?php
 			include "db.php";
-		    if($stmt = $mysqli->prepare("SELECT grade.description, lesson.name FROM lesson INNER JOIN grade ON grade.id = ? WHERE lesson.id = ?"))
+		    if($stmt = $mysqli->prepare("SELECT description FROM grade WHERE id = ?"))
 		    {
-		        $stmt->bind_param("ii", $_SESSION['grade'], $_SESSION['lesson']);
+		        $stmt->bind_param("i", $_SESSION['grade']);
 		        $stmt->execute(); 
-		        $stmt->bind_result($grade, $lesson);
+		        $stmt->bind_result($grade);
 		        while($stmt->fetch())
 		        {
-		            //echo $grade . ">" . $lesson . "<br />";
+		            //echo $grade . "<br />";
 		        }
 		        $stmt->close(); 
 		    }
 		    $mysqli->close();
         ?>
-      
+		
+		
+		
 		<!-- Contaner begin -->
 <div class="container"> 
 		<!--menu begin-->
-    <a href="http://localhost/tengis/aguulga"><div class="class<?php echo $_SESSION['grade'] ?>_1"></div></a>
+    <a href="#"><div class="class<?php echo $_SESSION['grade'] ?>_1"></div></a>
         <!--menu end-->
         <div class="class<?php echo $_SESSION['grade']?>_header"></div>
         <div class="cloud"><h3>БҮЛЭГ СЭДЭВ</h3></div>
@@ -62,15 +60,21 @@
 			//Доор анги дуудаж байгаагаас нэг ялгаатай юм байгаа нь тэр асуултын ? тэмдэг.
 			//Тэр ? тэмдэгийн байрлалыг сайн хараарай, учир нь тэнд дараа нь нэг тоо рендэрлэгдэнэ.
 			//Яагав нөгөө ангиас ирж байгаа grade-ийн id ;)
-		    if($stmt = $mysqli->prepare("SELECT id, name, description FROM subject WHERE lesson_id = ? ORDER BY id"))
+		    if($stmt = $mysqli->prepare("SELECT id, name, description FROM lesson WHERE grade_id = ? ORDER BY id")) 
 		    {
-		        $stmt->bind_param("i", $_GET['lesson']);
-		        $stmt->execute();
+				//Дээр байсан ? тэмдэгийн ид шид энд гарч ирнэ.
+				//Гэхдээ зүгээр шууд яагаад string дээр нь рэндэрлэчихэж яагаад болоогүй юм гэж үү?
+				//Учир нь бид prepared statment гэдэг mysql-ийн маш том давуу талыг дээр ашиглаж байгаа юм.
+				//За одоо асуултын тэмдэгийн оронд юу байхыг доор зааж өгнө.
+				//i гэдэг нь integer тоо байна гэдгийг, тэгээд тэр тоо нь өмнөх хуудсаас ирсэн grade гэдэг хувьсагч байна гэдгийг зааж байна.
+				//Өмнөх хуудаснаас ангийн id орж ирээд энд хичээлүүдийг ангийн id-гаар нь шүүж байгаа юм. 
+		        $stmt->bind_param("i", $_GET['grade']);    
+		        $stmt->execute(); 
 		        $stmt->bind_result($id, $name, $description);
 		        while($stmt->fetch()) 
 		        {
 		            //printf("<a href=\"subject.php?lesson=%d\">%s</a> -- %s<br >", $id, $name, $description);
-		            printf("<div class=\"list_menu_%d\"><a href=\"subsubject.php?subject=%d\"><h4>%s</h4></a><div class=\"circle\"></div></div>",$_SESSION['grade'], $id, $name);  
+		            printf("<div class=\"list_menu_%d\"><a href=\"subject.php?lesson=%d\"><h4>%s</h4></a><div class=\"circle\"></div></div>",$_SESSION['grade'], $id, $name);  
 		        }
 		        $stmt->close();
 		    }
@@ -91,9 +95,7 @@
 
 </div>
 <!-- Container end-->
-		
-		
-		<div class="footer" align="center">
+<div class="footer" align="center">
 			<div class="footer1">
     			<a href="#"><div class="footer2"></div></a>
         <div class="footer3" align="left">

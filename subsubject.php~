@@ -1,10 +1,6 @@
 <?php 
 	session_start();
 	$_SESSION['subject'] = $_GET['subject'];
-	//Шалгалтанд зориулж үүсгэсэн session-уудыг устгаж байна.
-   	if(isset($_SESSION['qids'])) unset($_SESSION['qids']);
-   	if(isset($_SESSION['qcursor'])) unset($_SESSION['qcursor']);
-   	if(isset($_SESSION['stdscore'])) unset($_SESSION['stdscore']);
 ?>
 <html>
     <head>
@@ -51,7 +47,7 @@
         <!--menu end-->
         <div class="class2_header"></div>
         <div class="onol">
-        		<div class="onol_link"><a href="#"><h5>Онол</h5></a></div> 
+        		<div class="onol_link"><a href="theory.php?subsubject=<?php echo $id;?>"><h5>Онол</h5></a></div> 
             <div class="onol_link"><a href="game.php?subsubject=<?php echo $id; ?>"><h6>Дадлага</h6></a></div>
             <div class="onol_link"><a href="test.php?subsubject=<?php echo $id;?>"><h6>Тест</h6></a></div>
         </div>
