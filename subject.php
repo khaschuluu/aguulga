@@ -32,7 +32,7 @@
 		<!-- Contaner begin -->
 <div class="container"> 
 		<!--menu begin-->
-    <a href="http://localhost/tengis/aguulga"><div class="class<?php echo $_SESSION['grade'] ?>_1"></div></a>
+    <a href="index.php"><div class="class<?php echo $_SESSION['grade'] ?>_1"></div></a>
         <!--menu end-->
         <div class="class<?php echo $_SESSION['grade']?>_header"></div>
         <div class="cloud"><h3>БҮЛЭГ СЭДЭВ</h3></div>
@@ -47,7 +47,7 @@
             	<div class="span-23 main_white"> 
               		<!-- left_home_page begin -->
                     <div class="span-7 left_home_page">
-                		<a href="http://localhost/tengis/aguulga"><div class="back"></div></a>
+                		<a href="index.php"><div class="back"></div></a>
                         <div class="ropot"></div> 
                 	</div>
                     <!-- left_home_page end -->

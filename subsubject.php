@@ -68,7 +68,7 @@
                     <div class="span-7 left_home_page">
                     
                     	<div class="title"><h7><?php echo $name; ?></h7></div>
-                		<a href="class_2.html"><div class="back"></div></a>
+                		<a href="index.php"><div class="back"></div></a>
                         <div class="ropot"></div>
                         
                 	</div>
