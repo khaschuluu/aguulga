@@ -47,13 +47,13 @@
 		<!-- Contaner begin -->
 <div class="container"> 
 		<!--menu begin-->
-    <a href="#"><div class="class2"></div></a>
+    <a href="index.php"><div class="class2"></div></a>
         <!--menu end-->
         <div class="class2_header"></div>
         <div class="onol">
-        		<div class="onol_link"><a href="#"><h5>Онол</h5></a></div> 
+        		<div class="onol_link"><a href="#"><h5>Онол</h5></a></div>
             <div class="onol_link"><a href="game.php?subsubject=<?php echo $id; ?>"><h6>Дадлага</h6></a></div>
-            <div class="onol_link"><a href="test.php?subsubject=<?php echo $id;?>"><h6>Тест</h6></a></div>
+            <div class="onol_link"><a href="test.php?subsubject=<?php echo $id; ?>"><h6>Тест</h6></a></div>
         </div>
 	
              <!--main begin-->

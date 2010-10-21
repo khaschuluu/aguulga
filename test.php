@@ -34,7 +34,7 @@
 		<!-- Contaner begin -->
 <div class="container"> 
 		<!--menu begin-->
-    <a href="#"><div class="class<?php echo $_SESSION['grade']; ?>_1"></div></a>
+    <a href="index.php"><div class="class<?php echo $_SESSION['grade']; ?>_1"></div></a>
         <!--menu end-->
         <div class="class<?php echo $_SESSION['grade']; ?>_header"></div>
         <div class="test">

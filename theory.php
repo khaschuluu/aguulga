@@ -33,7 +33,7 @@
 		<!-- Contaner begin -->
 <div class="container"> 
 		<!--menu begin-->
-    <a href="#"><div class="class<?php echo $_SESSION['grade'] ?>_1"></div></a>
+    <a href="index.php"><div class="class<?php echo $_SESSION['grade'] ?>_1"></div></a>
         <!--menu end-->
         <div class="class<?php echo $_SESSION['grade'] ?>_header"></div>
         <div class="onol">
@@ -54,7 +54,7 @@
                     <div class="span-7 left_home_page">
                     
                     	<div class="title"><h7><?php echo $subsubject; ?></h7></div>
-                		<a href="class_2.html"><div class="back"></div></a>
+                		<a href="index.php"><div class="back"></div></a>
                         <div class="ropot"></div>
                         
                 	</div>
