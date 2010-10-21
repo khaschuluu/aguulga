@@ -8,7 +8,7 @@
     }
     else
     {
-        if(isset($_POST['subject_id']) && isset($_POST['subsubject_name']) && isset($_POST['subject_description']))
+        if(isset($_POST['subject_id']) && isset($_POST['subsubject_name']) && isset($_POST['subsubject_description']))
         {
             include "../db.php";
 			if($stmt = $mysqli->prepare("INSERT INTO subsubject(subject_id, name, description) values(?, ?, ?)"))
@@ -36,14 +36,14 @@
             <select name="subject_id">
             <?php
                 include "../db.php";
-				$query = "SELECT subject.id, grade.description, lesson.name, subject.name FROM subject INNER JOIN lesson ON lesson.id = subject.lesson_id INNER JOIN grade ON grade.id = lesson.grade_id ORDER BY subject.id";
+				$query = "SELECT subject.id, grade.name, lesson.name, subject.name FROM subject INNER JOIN lesson ON lesson.id = subject.lesson_id INNER JOIN grade ON grade.id = lesson.grade_id ORDER BY subject.id";
                 if($result = $mysqli->prepare($query))
                 {
                     $result->execute();
-                    $result->bind_result($subject_id, $grade_description, $lesson_name, $subject_name);
+                    $result->bind_result($subject_id, $grade_name, $lesson_name, $subject_name);
                     while($result->fetch())
                     {
-                        printf("<option value=\"%d\">%s %s %s</option>", $subject_id, $grade_description, $lesson_name, $subject_name);
+                        printf("<option value=\"%d\">%s %s %s</option>", $subject_id, $grade_name, $lesson_name, $subject_name);
                     }
                     $result->close();
                 }
@@ -51,10 +51,10 @@
 
             ?>
             </select><br />
-            Сэдвийн нэр:
-            <input type="text" name="subject_name" /><br />
-            Сэдвийн тайлбар:
-            <input type="text" name="subject_description" /><br />
+            Дэд сэдвийн нэр:
+            <input type="text" name="subsubject_name" /><br />
+            Дэд сэдвийн тайлбар:
+            <input type="text" name="subsubject_description" /><br />
             <input type="submit" value="Оруулах" />
         </form>
         <a href="index.php">Буцах</a> | <a href="../index.php">Нүүр</a>
