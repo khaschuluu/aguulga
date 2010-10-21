@@ -10,6 +10,13 @@
 	 		<!--menu begin-->
 	 			
 	 	<?php 
+			//Тестийн хэсэг зориулсан хэсгээс санамсаргүй тохиолдлоор аль ч хуудасруу шижлсэн үед тухайн үеийн session-уудыг устгаж байна.
+			if($_SESSION['qids'][$_SESSION['qcursor']] == null)
+            {
+                if(isset($_SESSION['qids'])) unset($_SESSION['qids']);
+                if(isset($_SESSION['qcursor'])) unset($_SESSION['qcursor']);
+                if(isset($_SESSION['stdscore'])) unset($_SESSION['stdscore']);
+            }
 	 	
 			//За доорх хэсгийг сайн харж аваарай. Бүх дуудах хэсгүүд иймэрхүү маягаар ажиллах учир би дараа дараагийн хуудсууд дээр тайлбар хийхгүй.
 			//Ангиудыг гаргаж харуулах хэсэг.

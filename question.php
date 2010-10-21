@@ -91,7 +91,7 @@
         <!-- Contaner begin --> 
 <div class="container">
 		<!--menu begin-->
-    <a href="#"><div class="class2"></div></a>
+    <a href="index.php"><div class="class2"></div></a>
         <!--menu end-->
         <div class="class2_header"></div>
         <div class="test">
@@ -113,7 +113,7 @@
                     <div class="span-7 left_home_page">
                     	<div class="title"><h7><?php echo $correct . "<br />";
       												  echo "Оноо: " . $stdscore; ?></h7></div>
-                		<a href="class_2.html"><div class="back"></div></a>
+                		<a href="index.php"><div class="back"></div></a>
                         <div class="ropot"></div>
                 	</div>
                     <!-- left_home_page end --> 

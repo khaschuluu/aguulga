@@ -121,7 +121,7 @@
             ?>
             </select><br />
             Асуулт:
-            <input type="text" name="question" /><br />
+            <textarea name="question" rows=10 cols=100 ></textarea><br />
             Асуултын төрөл:
 			<select name="question_type">
 				<option value="0">Сонгодог</option>
