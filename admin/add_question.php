@@ -106,7 +106,7 @@
             <select name="test_id">
             <?php
                 include "../db.php";
-				$query = "SELECT test.id, grade.description, lesson.name, subject.name, subsubject.name, test.name FROM test INNER JOIN subsubject ON subsubject.id = test.subsubject_id INNER JOIN subject ON subject.id = subsubject.subject_id INNER JOIN lesson ON lesson.id = subject.lesson_id INNER JOIN grade ON grade.id = lesson.grade_id ORDER BY test.id";
+				$query = "SELECT test.id, grade.description, lesson.name, subject.name, subsubject.name, test.name FROM test INNER JOIN subsubject ON subsubject.id = test.subsubject_id INNER JOIN subject ON subject.id = subsubject.subject_id INNER JOIN lesson ON lesson.id = subject.lesson_id INNER JOIN grade ON grade.id = lesson.grade_id ORDER BY test.id DESC";
                 if($result = $mysqli->prepare($query))
                 {
                     $result->execute();

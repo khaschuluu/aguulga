@@ -62,6 +62,21 @@
             }
             $mysqli->close();
         }
+		else
+		{
+        	$_SESSION['stdscore'] = $_SESSION['stdscore'] + 0;
+        	$stdscore = $_SESSION['stdscore'];
+        	$correct = "Хариулт байхгүй";
+                    
+			$_SESSION['qcursor'] += 1;
+           	if($_SESSION['qids'][$_SESSION['qcursor']] == null)
+           	{
+           	    if(isset($_SESSION['qids'])) unset($_SESSION['qids']);
+           	    if(isset($_SESSION['qcursor'])) unset($_SESSION['qcursor']);
+           	    if(isset($_SESSION['stdscore'])) unset($_SESSION['stdscore']);
+           	}
+
+		}
     }
 ?>
 <html>
@@ -153,7 +168,7 @@
                 }
                 else
                 {
-                    echo "<a href=\"test?subsubject=" . $_SESSION['subsubject'] . "\">Буцах</a>";
+                    echo "<a href=\"test.php?subsubject=" . $_SESSION['subsubject'] . "\">Буцах</a>";
                 }
 		    ?>
         </form> 
