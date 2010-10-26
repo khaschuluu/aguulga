@@ -47,14 +47,10 @@
 		<!-- Contaner begin -->
 <div class="container"> 
 		<!--menu begin-->
-    <a href="index.php"><div class="class2"></div></a>
+    <a href="index.php"><div class="class<?php echo $_SESSION['grade'] ?>_1"></div></a>
         <!--menu end-->
-        <div class="class2_header"></div>
-        <div class="onol">
-        		<div class="onol_link"><a href="#"><h5>Онол</h5></a></div>
-            <div class="onol_link"><a href="game.php?subsubject=<?php echo $id; ?>"><h6>Дадлага</h6></a></div>
-            <div class="onol_link"><a href="test.php?subsubject=<?php echo $id; ?>"><h6>Тест</h6></a></div>
-        </div>
+        <div class="class<?php echo $_SESSION['grade']?>_header"></div>
+        <div class="cloud"><h3>ДЭД БҮЛЭГ СЭДЭВ</h3></div>
 	
              <!--main begin-->
 			<div class="span-24 main"> 
@@ -66,38 +62,42 @@
             	<div class="span-23 main_white"> 
               		<!-- left_home_page begin -->
                     <div class="span-7 left_home_page">
-                    
-                    	<div class="title"><h7><?php echo $name; ?></h7></div>
                 		<a href="index.php"><div class="back"></div></a>
-                        <div class="ropot"></div>
-                        
+                        <div class="ropot"></div> 
                 	</div>
-                    <!-- left_home_page end --> 
+                    <!-- left_home_page end -->
                 	<!-- right_home_page begin -->
-                    <div class="span-15 right_home_page1">
-                    	
-                    	<div class="onol_youtube">
-                    		<?php
-		    						include "db.php";
-								   if($stmt = $mysqli->prepare("SELECT description FROM theory WHERE subsubject_id = ?"))
-		    						{
-		        						$stmt->bind_param("i", $id);
-		        						$stmt->execute();
-		        						$stmt->bind_result($description);
-		        						while($stmt->fetch())
-		        						{
-		            					printf("%s", $description);
-		        						}
-		        						$stmt->close();
-		    						}
-		    						$mysqli->close();
-								?>
-                      	 
-                     </div>
+                    <div class="span-15 right_home_page"> 
                     
-                		</div> 
+                    <?php 
+			//Хичээлүүдийг дуудаж харуулах хэсэг.
+			include "db.php";
+			//Одоо доор бичих хэдэн тайлбарууд бас л бусад дуудах хуудсууд дээр тавтагдана.
+			//Сайн харж аваарай, энэ нь өмнөх хуудаснаас ирсэн өгөгдлийг барьж аваад тэрүүгээрээ шүүлт хийх эд байгаа юм.
+			//Доор анги дуудаж байгаагаас нэг ялгаатай юм байгаа нь тэр асуултын ? тэмдэг.
+			//Тэр ? тэмдэгийн байрлалыг сайн хараарай, учир нь тэнд дараа нь нэг тоо рендэрлэгдэнэ.
+			//Яагав нөгөө ангиас ирж байгаа grade-ийн id ;)
+		    if($stmt = $mysqli->prepare("SELECT id, name, description FROM subsubject WHERE subject_id = ? ORDER BY id"))
+		    {
+		        $stmt->bind_param("i", $_GET['subject']);
+		        $stmt->execute();
+		        $stmt->bind_result($id, $name, $description);
+		        while($stmt->fetch()) 
+		        {
+		            //printf("<a href=\"subject.php?lesson=%d\">%s</a> -- %s<br >", $id, $name, $description);
+		            printf("<div class=\"list_menu_%d\"><a href=\"theory.php?subsubject=%d\"><h4>%s</h4></a><div class=\"circle\"></div></div>",$_SESSION['grade'], $id, $name);  
+		        }
+		        $stmt->close();
+		    }
+		    $mysqli->close();
+		?>
+                    
+ 
+                    
+                    
+                		</div>
                 <!-- rigth_home_right end -->
-            </div>
+            </div> 
              <!-- main white end -->
 		</div>
 
@@ -105,9 +105,10 @@
 <!-- main end-->
 
 </div>
-
 <!-- Container end-->
-<div class="footer" align="center">
+		
+		
+		<div class="footer" align="center">
 			<div class="footer1">
     			<a href="#"><div class="footer2"></div></a>
         <div class="footer3" align="left">
